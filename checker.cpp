@@ -44,8 +44,8 @@ bool batteryIsOk(float temperature,float LowerTempLimit,float UpperTempLimit,
     SocOk  = batterySocIsOk(soc,LowerSocLimit,UpperSocLimit);
     ChargeRateOk       = batteryChargeRateIsOk(chargeRate,UpperChargeRate);
     debugMessge(!tempOk,"Temperature out of range!\n");
-    debugMessge(tempOk&&!SocOk,"State of Charge out of range!\n");
-    debugMessge(tempOk&&SocOk&&!ChargeRateOk,"Charge Rate out of range!\n");
+    debugMessge(!SocOk,"State of Charge out of range!\n");
+    debugMessge(!ChargeRateOk,"Charge Rate out of range!\n");
   
   return tempOk&&SocOk&&ChargeRateOk;
  
