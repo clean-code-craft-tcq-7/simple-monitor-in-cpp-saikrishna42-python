@@ -1,12 +1,4 @@
-#include <assert.h>
-#include <iostream>
-using namespace std;
-
-#define batteryLowerTempLimit 0
-#define batteryUpperTempLimit 45
-#define batteryLowerSocLimit 20
-#define batteryUpperSocLimit 80
-#define batteryUpperChargeRate 0.8
+#include "checker.hpp"
 
 
 bool ValLimitCheck(float Val,float LowerLimit,float UpperLimit)
@@ -44,14 +36,16 @@ void debugMessge(bool debug,string Message)
     }
 }
 
-bool batteryIsOk(float temperature, float soc, float chargeRate) {
+bool batteryIsOk(float temperature,float LowerTempLimit,float UpperTempLimit,
+                 float soc, float LowerSocLimit,float UpperSocLimit,
+                 float chargeRate,float UpperChargeRate) {
      bool tempOk=false,SocOk=false,ChargeRateOk=false;
-    tempOk = batteryTempIsOk(temperature,batteryLowerTempLimit,batteryUpperTempLimit);
-    SocOk  = batterySocIsOk(soc,batteryLowerSocLimit,batteryUpperSocLimit);
-    ChargeRateOk       = batteryChargeRateIsOk(chargeRate,batteryUpperChargeRate);
+    tempOk = batteryTempIsOk(temperature,LowerTempLimit,UpperTempLimit);
+    SocOk  = batterySocIsOk(soc,LowerSocLimit,UpperSocLimit);
+    ChargeRateOk       = batteryChargeRateIsOk(chargeRate,UpperChargeRate);
     debugMessge(!tempOk,"Temperature out of range!\n");
-    debugMessge(!SocOk,"State of Charge out of range!\n");
-    debugMessge(!ChargeRateOk,"Charge Rate out of range!\n");
+    debugMessge(tempOk&&!SocOk,"State of Charge out of range!\n");
+    debugMessge(tempOk&&SocOk&&!ChargeRateOk,"Charge Rate out of range!\n");
   
   return tempOk&&SocOk&&ChargeRateOk;
  
@@ -59,7 +53,3 @@ bool batteryIsOk(float temperature, float soc, float chargeRate) {
 
 
 
-int main() {
-  assert(batteryIsOk(25, 70, 0.7) == true);
-  assert(batteryIsOk(50, 85, 0) == false);
-}
