@@ -36,31 +36,27 @@ bool batteryChargeRateIsOk(float chargeRate,float UpperChargeRate)
   return !(chargeRate > UpperChargeRate); 
 }
 
+void debugMessge(bool debug,string Message)
+{
+    if(debug)
+    {
+        cout<<Message;
+    }
+}
 
 bool batteryIsOk(float temperature, float soc, float chargeRate) {
-     bool tempNotOk=true,SocNotOk=true,ChargeRateNotOk=true;
-    tempNotOk = !batteryTempIsOk(temperature,batteryLowerTempLimit,batteryUpperTempLimit);
-    if(tempNotOk) 
-    {
-        cout << "Temperature out of range!\n";
-        return false;
-    } 
-    SocNotOk  = !batterySocIsOk(soc,batteryLowerSocLimit,batteryUpperSocLimit);
-    if(SocNotOk)
-     {
-        cout << "State of Charge out of range!\n";
-        return false;
-    }
-    ChargeRateNotOk       =! batteryChargeRateIsOk(chargeRate,batteryUpperChargeRate);
-    if(ChargeRateNotOk) 
-    {
-        cout << "Charge Rate out of range!\n";
-        return false;
-    }
- 
-  return true;
+     bool tempOk=false,SocOk=false,ChargeRateOk=false;
+    tempOk = batteryTempIsOk(temperature,batteryLowerTempLimit,batteryUpperTempLimit);
+    SocOk  = batterySocIsOk(soc,batteryLowerSocLimit,batteryUpperSocLimit);
+    ChargeRateOk       = batteryChargeRateIsOk(chargeRate,batteryUpperChargeRate);
+    debugMessge(!tempOk,"Temperature out of range!\n");
+    debugMessge(!SocOk,"State of Charge out of range!\n");
+    debugMessge(!ChargeRateOk,"Charge Rate out of range!\n");
+  
+  return tempOk&&SocOk&&ChargeRateOk;
  
 }
+
 
 
 int main() {
