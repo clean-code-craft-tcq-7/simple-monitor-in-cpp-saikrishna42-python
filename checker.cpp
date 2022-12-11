@@ -9,9 +9,9 @@ using namespace std;
 #define batteryUpperChargeRate 0.8
 
 
-bool batteryTempIsOk(float temperature,float batteryLowerTempLimit,float batteryUpperTempLimit)
+bool batteryTempIsOk(float temperature,float LowerTempLimit,float UpperTempLimit)
 {
-     if (temperature < batteryLowerTempLimit || temperature > batteryUpperTempLimit)
+     if (temperature < LowerTempLimit || temperature > UpperTempLimit)
      {
        return false;
      }
@@ -22,9 +22,9 @@ bool batteryTempIsOk(float temperature,float batteryLowerTempLimit,float battery
 }
 
 
-bool batterySocIsOk(float soc,float batteryLowerSocLimit,float batteryUpperSocLimit)
+bool batterySocIsOk(float soc,float LowerSocLimit,float UpperSocLimit)
 {
-  if(soc < batteryLowerSocLimit || soc > batteryUpperSocLimit)
+  if(soc < LowerSocLimit || soc > UpperSocLimit)
   {
     return false;
   }
@@ -34,9 +34,9 @@ bool batterySocIsOk(float soc,float batteryLowerSocLimit,float batteryUpperSocLi
   }
 }
 
-bool batteryChargeRateIsOk(float chargeRate,float batteryUpperChargeRate)
+bool batteryChargeRateIsOk(float chargeRate,float UpperChargeRate)
 {
-  if(chargeRate > batteryUpperChargeRate) 
+  if(chargeRate > UpperChargeRate) 
   {
     return false;
   }
