@@ -39,14 +39,13 @@ void debugMessge(bool debug,string Message)
 bool batteryIsOk(float temperature,float LowerTempLimit,float UpperTempLimit,
                  float soc, float LowerSocLimit,float UpperSocLimit,
                  float chargeRate,float UpperChargeRate) {
-     bool tempOk=false,SocOk=false,ChargeRateOk=false,SocNotOk=false;
+     bool tempOk=false,SocOk=false,ChargeRateOk=false;
     tempOk = batteryTempIsOk(temperature,LowerTempLimit,UpperTempLimit);
     SocOk  = batterySocIsOk(soc,LowerSocLimit,UpperSocLimit);
      
     ChargeRateOk       = batteryChargeRateIsOk(chargeRate,UpperChargeRate);
     debugMessge(!tempOk,"Temperature out of range!\n");
-     SocNotOk=tempOk&&!SocOk;
-    debugMessge(SocNotOk,"State of Charge out of range!\n");
+    debugMessge(!SocOk,"State of Charge out of range!\n");
     debugMessge(!ChargeRateOk,"Charge Rate out of range!\n");
   
   return tempOk&&SocOk&&ChargeRateOk;
