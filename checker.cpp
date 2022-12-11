@@ -2,10 +2,16 @@
 #include <iostream>
 using namespace std;
 
+#define batteryLowerTempLimit 0
+#define batteryUpperTempLimit 45
+#define batteryLowerSocLimit 20
+#define batteryUpperSocLimit 20
+#define batteryUpperChargeRate 0.8
 
-bool batteryTempIsOk(float temperature)
+
+bool batteryTempIsOk(float temperature,float batteryLowerTempLimit,float batteryUpperTempLimit)
 {
-     if (temperature < 0 || temperature > 45)
+     if (temperature < batteryLowerTempLimit || temperature > batteryUpperTempLimit)
      {
        return false;
      }
@@ -16,9 +22,9 @@ bool batteryTempIsOk(float temperature)
 }
 
 
-bool batterySocIsOk(float soc)
+bool batterySocIsOk(float soc,float batteryLowerSocLimit,float batteryUpperSocLimit)
 {
-  if(soc < 20 || soc > 80)
+  if(soc < batteryLowerSocLimit || soc > batteryUpperSocLimit)
   {
     return false;
   }
@@ -28,9 +34,9 @@ bool batterySocIsOk(float soc)
   }
 }
 
-bool batteryChargeRateIsOk(float chargeRate)
+bool batteryChargeRateIsOk(float chargeRate,float batteryUpperChargeRate)
 {
-  if(chargeRate > 0.8) 
+  if(chargeRate > batteryUpperChargeRate) 
   {
     return false;
   }
@@ -52,7 +58,9 @@ bool batteryIsOk(float temperature, float soc, float chargeRate) {
     cout << "Charge Rate out of range!\n";
     return false;
   }*/
-  return batteryTempIsOk(temperature)&&batterySocIsOk(soc)&&batteryChargeRateIsOk(chargeRate);
+  return batteryTempIsOk(temperature,batteryLowerTempLimit,batteryUpperTempLimit) && 
+         batterySocIsOk(soc,batteryLowerSocLimit,batteryUpperSocLimit)            &&
+         batteryChargeRateIsOk(chargeRate,batteryUpperChargeRate);
  
 }
 
