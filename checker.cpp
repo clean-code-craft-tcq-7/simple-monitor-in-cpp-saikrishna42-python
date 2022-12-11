@@ -5,45 +5,35 @@ using namespace std;
 #define batteryLowerTempLimit 0
 #define batteryUpperTempLimit 45
 #define batteryLowerSocLimit 20
-#define batteryUpperSocLimit 20
+#define batteryUpperSocLimit 80
 #define batteryUpperChargeRate 0.8
 
 
-bool batteryTempIsOk(float temperature,float LowerTempLimit,float UpperTempLimit)
+bool ValLimitCheck(float Val,float LowerLimit,float UpperLimit)
 {
-     if (temperature < LowerTempLimit || temperature > UpperTempLimit)
+     if(Val < LowerLimit || Val > UpperLimit)
      {
-       return false;
+          return false;
      }
-    else
-    {
-      return true;
-    }
+     else
+     {
+          return true;
+     }
 }
 
+bool batteryTempIsOk(float temperature,float LowerTempLimit,float UpperTempLimit)
+{
+    return ValLimitCheck(temperature,LowerTempLimit,UpperTempLimit);
+}
 
 bool batterySocIsOk(float soc,float LowerSocLimit,float UpperSocLimit)
 {
-  if(soc < LowerSocLimit || soc > UpperSocLimit)
-  {
-    return false;
-  }
-  else
-  {
-    return true;
-  }
+  return ValLimitCheck(soc,LowerSocLimit,UpperSocLimit);
 }
 
 bool batteryChargeRateIsOk(float chargeRate,float UpperChargeRate)
 {
-  if(chargeRate > UpperChargeRate) 
-  {
-    return false;
-  }
-  else
-  {
-    return true;
-  }
+  return !(chargeRate > UpperChargeRate); 
 }
 
 
