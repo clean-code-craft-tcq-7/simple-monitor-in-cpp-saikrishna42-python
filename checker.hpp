@@ -9,8 +9,8 @@ using namespace std;
 #define batteryUpperChargeRate 0.8
 
 bool ValLimitCheck(float Val,float LowerLimit,float UpperLimit);
-bool batteryTempIsOk(float temperature,float LowerTempLimit,float UpperTempLimit);
-bool batterySocIsOk(float soc,float LowerSocLimit,float UpperSocLimit);
+bool battery_Temp_SOCIsOk(float ,float ,float );
+;
 bool batteryChargeRateIsOk(float chargeRate,float UpperChargeRate);
 string debugMessge(bool debug,string Message);
 bool batteryIsOk(float , float , float ,float,float,float,float,float);

@@ -13,15 +13,12 @@ bool ValLimitCheck(float Val,float LowerLimit,float UpperLimit)
      }
 }
 
-bool batteryTempIsOk(float temperature,float LowerTempLimit,float UpperTempLimit)
+bool battery_Temp_SOCIsOk(float value,float LowerLimit,float UpperLimit)
 {
-    return ValLimitCheck(temperature,LowerTempLimit,UpperTempLimit);
+    return ValLimitCheck(value,LowerLimit,UpperLimit);
 }
 
-bool batterySocIsOk(float soc,float LowerSocLimit,float UpperSocLimit)
-{
-  return ValLimitCheck(soc,LowerSocLimit,UpperSocLimit);
-}
+
 
 bool batteryChargeRateIsOk(float chargeRate,float UpperChargeRate)
 {
@@ -42,8 +39,8 @@ bool batteryIsOk(float temperature,float LowerTempLimit,float UpperTempLimit,
                  float soc, float LowerSocLimit,float UpperSocLimit,
                  float chargeRate,float UpperChargeRate) {
      bool tempOk=false,SocOk=false,ChargeRateOk=false;
-    tempOk = batteryTempIsOk(temperature,LowerTempLimit,UpperTempLimit);
-    SocOk  = batterySocIsOk(soc,LowerSocLimit,UpperSocLimit);
+    tempOk = battery_Temp_SOCIsOk(temperature,LowerTempLimit,UpperTempLimit);
+    SocOk  = battery_Temp_SOCIsOk(soc,LowerSocLimit,UpperSocLimit);
     ChargeRateOk       = batteryChargeRateIsOk(chargeRate,UpperChargeRate);
  
     debugMessge(!tempOk,"Temperature out of range!\n");

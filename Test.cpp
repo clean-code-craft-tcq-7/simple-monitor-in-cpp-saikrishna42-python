@@ -11,18 +11,18 @@ assert(ValLimitCheck(-10,0,80)==false);
 assert(ValLimitCheck(100,0,80)==false);
 
 //Testing Battery Temperature  
-assert(batteryTempIsOk(25,batteryLowerTempLimit,batteryUpperTempLimit));
-assert(batteryTempIsOk(0,batteryLowerTempLimit,batteryUpperTempLimit));
-assert(batteryTempIsOk(45,batteryLowerTempLimit,batteryUpperTempLimit));
-assert(batteryTempIsOk(-10,batteryLowerTempLimit,batteryUpperTempLimit)==false);
-assert(batteryTempIsOk(50,batteryLowerTempLimit,batteryUpperTempLimit)==false);
+assert(battery_Temp_SOCIsOk(25,batteryLowerTempLimit,batteryUpperTempLimit));
+assert(battery_Temp_SOCIsOk(0,batteryLowerTempLimit,batteryUpperTempLimit));
+assert(battery_Temp_SOCIsOk(45,batteryLowerTempLimit,batteryUpperTempLimit));
+assert(battery_Temp_SOCIsOk(-10,batteryLowerTempLimit,batteryUpperTempLimit)==false);
+assert(battery_Temp_SOCIsOk(50,batteryLowerTempLimit,batteryUpperTempLimit)==false);
 
 //Testing the Battery SOC
-assert(batterySocIsOk(25,batteryLowerSocLimit,batteryUpperSocLimit));
-assert(batterySocIsOk(20,batteryLowerSocLimit,batteryUpperSocLimit));
-assert(batterySocIsOk(80,batteryLowerSocLimit,batteryUpperSocLimit));
-assert(batterySocIsOk(0,batteryLowerSocLimit,batteryUpperSocLimit)==false);
-assert(batterySocIsOk(100,batteryLowerSocLimit,batteryUpperSocLimit)==false);
+assert(battery_Temp_SOCIsOk(25,batteryLowerSocLimit,batteryUpperSocLimit));
+assert(battery_Temp_SOCIsOk(20,batteryLowerSocLimit,batteryUpperSocLimit));
+assert(battery_Temp_SOCIsOk(80,batteryLowerSocLimit,batteryUpperSocLimit));
+assert(battery_Temp_SOCIsOk(0,batteryLowerSocLimit,batteryUpperSocLimit)==false);
+assert(battery_Temp_SOCIsOk(100,batteryLowerSocLimit,batteryUpperSocLimit)==false);
 
 //Testing the Battery Charging Rate
 assert(batteryChargeRateIsOk(0,batteryUpperChargeRate));
