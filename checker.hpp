@@ -12,5 +12,5 @@ bool ValLimitCheck(float Val,float LowerLimit,float UpperLimit);
 bool batteryTempIsOk(float temperature,float LowerTempLimit,float UpperTempLimit);
 bool batterySocIsOk(float soc,float LowerSocLimit,float UpperSocLimit);
 bool batteryChargeRateIsOk(float chargeRate,float UpperChargeRate);
-void debugMessge(bool debug,string Message);
+string debugMessge(bool debug,string Message);
 bool batteryIsOk(float , float , float ,float,float,float,float,float);

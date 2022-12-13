@@ -35,6 +35,10 @@ assert(batteryChargeRateIsOk(1,batteryUpperChargeRate)==false);
   assert(batteryIsOk(50 ,batteryLowerTempLimit,batteryUpperTempLimit,85,batteryLowerSocLimit,batteryUpperSocLimit, 0,batteryUpperChargeRate) == false);
   assert(batteryIsOk(25 ,batteryLowerTempLimit,batteryUpperTempLimit,85,batteryLowerSocLimit,batteryUpperSocLimit, 10,batteryUpperChargeRate) == false);
   assert(batteryIsOk(25 ,batteryLowerTempLimit,batteryUpperTempLimit,70,batteryLowerSocLimit,batteryUpperSocLimit, 10,batteryUpperChargeRate) == false);
+
+assert(debugMessge(true,"Temperature out of range!\n")=="Temperature out of range!\n");
+assert(debugMessge(false,"Temperature out of range!\n")=="No error");
+
 }
 
 
