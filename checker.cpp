@@ -33,6 +33,10 @@ bool Val_Above_theLimitCheck(float Val,float UpperLimit)
           return true;
      }
 }
+bool Val_Limitcheck(float Val,float LowerLimit,float UpperLimit)
+{
+    return Val_Below_theLimitCheck(Val,LowerLimit)&&Val_Above_theLimitCheck(Val,UpperLimit);
+}
 
 void debugMessge(bool debug,string Message)
 {
@@ -53,7 +57,7 @@ float Tempature::Conv_temp_cels_2_fahr(float temp)
 bool Tempature::battery_TempIsOk(float temp)
 {
     #if(temp_In==TEMP_IN_celcius)
-      return Val_Below_theLimitCheck(temp,batteryLowerTempLimit)&&Val_Above_theLimitCheck(temp,batteryUpperTempLimit);
+      return Val_Limitcheck(temp,batteryLowerTempLimit,batteryUpperTempLimit);
     #else
        float temp_fahr,LowerLimit_fahr,upperLimit_fahr;
       temp_fahr=Tempature::Conv_temp_cels_2_fahr(temp);
@@ -61,7 +65,7 @@ bool Tempature::battery_TempIsOk(float temp)
       upperLimit_fahr= Tempature::Conv_temp_cels_2_fahr(batteryUpperTempLimit);
 
        
-      return Val_Below_theLimitCheck(temp_fahr,LowerLimit_fahr)&&Val_Above_theLimitCheck(temp_fahr,upperLimit_fahr);
+      return Val_Limitcheck(temp_fahr,LowerLimit_fahr,upperLimit_fahr);
     #endif
 }
 
