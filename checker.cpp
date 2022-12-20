@@ -1,5 +1,14 @@
 #include "checker.hpp"
 
+using namespace battery;
+
+ const float Tempature::batteryLowerTempLimit=0;
+ const float Tempature::batteryUpperTempLimit=45;
+
+ const float  SOC::batteryLowerSocLimit=20;
+ const float  SOC::batteryUpperSocLimit=80;
+
+ const float ChargeRate::batteryUpperChargeRate=0.8;
 
 bool ValLimitCheck(float Val,float LowerLimit,float UpperLimit)
 {
@@ -13,43 +22,64 @@ bool ValLimitCheck(float Val,float LowerLimit,float UpperLimit)
      }
 }
 
-bool battery_Temp_SOCIsOk(float value,float LowerLimit,float UpperLimit)
-{
-    return ValLimitCheck(value,LowerLimit,UpperLimit);
-}
-
-
-
-bool batteryChargeRateIsOk(float chargeRate,float UpperChargeRate)
-{
-  return !(chargeRate > UpperChargeRate); 
-}
-
-string debugMessge(bool debug,string Message)
+void debugMessge(bool debug,string Message)
 {
     if(debug)
     {
         cout<<Message;
-        return Message;
+        
     }
-    return "No error";
+   
 }
 
-bool batteryIsOk(float temperature,float LowerTempLimit,float UpperTempLimit,
-                 float soc, float LowerSocLimit,float UpperSocLimit,
-                 float chargeRate,float UpperChargeRate) {
+float Tempature::Conv_temp_cels_2_fahr(float temp)
+{
+    return (temp*1.8+32);
+}
+
+
+bool Tempature::battery_TempIsOk(float temp)
+{
+    #if(temp_In==TEMP_IN_celcius)
+      return ValLimitCheck(temp,batteryLowerTempLimit,batteryUpperTempLimit);
+    #else
+      static float temp_fahr,LowerLimit_fahr,upperLimit_fahr;
+      temp_fahr=Tempature::Conv_temp_cels_2_fahr(temp);
+      LowerLimit_fahr=Tempature::Conv_temp_cels_2_fahr(batteryLowerTempLimit);
+      upperLimit_fahr= Tempature::Conv_temp_cels_2_fahr(batteryUpperTempLimit);
+
+       
+      return ValLimitCheck(temp_fahr,LowerLimit_fahr,upperLimit_fahr);
+    #endif
+}
+
+
+
+bool SOC::battery_SOCIsOk(float soc)
+{
+    return ValLimitCheck(soc,batteryLowerSocLimit,batteryUpperSocLimit);
+}
+
+bool ChargeRate::batteryChargeRateIsOk(float ChargeRate)
+{
+    return !(ChargeRate > batteryUpperChargeRate); 
+}
+
+bool BMS::batteryIsOk(float temperature,
+                 float soc,
+                 float chargeRate) {
      bool tempOk=false,SocOk=false,ChargeRateOk=false;
-    tempOk = battery_Temp_SOCIsOk(temperature,LowerTempLimit,UpperTempLimit);
-    SocOk  = battery_Temp_SOCIsOk(soc,LowerSocLimit,UpperSocLimit);
-    ChargeRateOk       = batteryChargeRateIsOk(chargeRate,UpperChargeRate);
- 
-    debugMessge(!tempOk,"Temperature out of range!\n");
-    debugMessge(!SocOk,"State of Charge out of range!\n");
-    debugMessge(!ChargeRateOk,"Charge Rate out of range!\n");
+    tempOk = battery_TempIsOk(temperature);
+    SocOk  = battery_SOCIsOk(soc);
+    ChargeRateOk       = batteryChargeRateIsOk(chargeRate);
+    debugMessge(!tempOk,temp_out_rang_msg);
+    debugMessge(!SocOk,soc_out_rang_msg);
+    debugMessge(!ChargeRateOk,chargeRate_out_rang_msg);
   
   return tempOk&&SocOk&&ChargeRateOk;
  
 }
+
 
 
 
