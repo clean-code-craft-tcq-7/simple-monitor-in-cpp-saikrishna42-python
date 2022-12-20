@@ -12,6 +12,12 @@
 #define Lang_Support_Other 2
 
 #define temp_In       TEMP_IN_farenheit
-#define Lang_support  Lang_Support_English
+#define Lang_support  Lang_Support_Germany
+
+
+
+#define Early_temp_warning Early_Warning_YES
+#define Early_soc_warning Early_Warning_YES
+#define Early_ChargeRate_warning Early_Warning_YES
 
 #endif
